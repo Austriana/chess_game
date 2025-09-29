@@ -2,6 +2,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 1000;
 canvas.height = 1000;
+canvas.style.touchAction = 'none'
 let background = new Image();
 background.src = 'pictures/background.avif';
 let lock = false;
@@ -78,6 +79,7 @@ window.addEventListener('load', () => {
     });
 });
 canvas.addEventListener('pointerdown', (e) => {
+    e.preventDefault()
     setArray.forEach(figure => {
         if(!lock && !figure.clicked && e.clientX > figure.x && e.clientX < figure.x + figure.width && e.clientY > figure.y && e.clientY < figure.y + figure.height){
             figure.clicked = true;
@@ -86,6 +88,7 @@ canvas.addEventListener('pointerdown', (e) => {
     });  
 });
 canvas.addEventListener('pointermove', (e) => {
+    e.preventDefault()
     ctx.clearRect(0, 0, 1000, 1000)
     ctx.drawImage(background, 0, 0)
     setArray.forEach(figure => {
@@ -97,6 +100,7 @@ canvas.addEventListener('pointermove', (e) => {
     });  
 });
 canvas.addEventListener('pointerup', (e) => {
+    e.preventDefault()
     setArray.forEach(figure => {
         figure.clicked = false;
         lock = false;
