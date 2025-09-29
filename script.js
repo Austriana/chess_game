@@ -1,6 +1,6 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const scale = 0.8;
+const scale = 0.5;
 let background = new Image();
 background.width = 500 * scale;
 background.height = 500 * scale;
