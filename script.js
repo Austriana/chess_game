@@ -1,19 +1,22 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = 1000;
-canvas.height = 1000;
-canvas.style.touchAction = 'none'
+const scale = 1.5;
 let background = new Image();
+background.width = 500 * scale;
+background.height = 500 * scale;
 background.src = 'pictures/background.avif';
+canvas.width = background.width;
+canvas.height = window.innerHeight -10;
+canvas.style.touchAction = 'none'
 let lock = false;
 
 class Figure{
     constructor({row, column, sx, sy, sw, sh}){
         this.image = new Image();
         this.image.src = 'pictures/Group 13.svg';
-        this.width = 54.70;
-        this.height = 54.70;
-        this.frame = 31.25;
+        this.width = 54.70 * scale;
+        this.height = 54.70 * scale;
+        this.frame = 31.25 * scale;
         this.row = row;
         this.column = column;
         this.sx = sx;
@@ -71,7 +74,7 @@ const setArray = [
 ];
 
 window.addEventListener('load', () => {
-    ctx.drawImage(background, 0, 0)
+    ctx.drawImage(background, 0, 0, background.width, background.height)
     setArray.forEach(figure => {
         figure.draw(ctx);        
     });
@@ -88,7 +91,7 @@ canvas.addEventListener('pointerdown', (e) => {
 canvas.addEventListener('pointermove', (e) => {
     e.preventDefault()
     ctx.clearRect(0, 0, 1000, 1000)
-    ctx.drawImage(background, 0, 0)
+    ctx.drawImage(background, 0, 0, background.width, background.height)
     setArray.forEach(figure => {
         if(lock && figure.clicked){
             figure.x = e.clientX - figure.width/2;
