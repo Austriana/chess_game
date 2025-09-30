@@ -1,12 +1,12 @@
 const canvas = document.getElementById('canvas');
 const scaling = document.getElementById('scaling');
 const ctx = canvas.getContext('2d');
-let scale = 1;
+let scale = .7;
 let background = new Image();
 background.width = 500 * scale;
 background.height = 500 * scale;
 background.src = 'pictures/background.avif';
-canvas.width = background.width;
+canvas.width = window.innerWidth - 10;
 canvas.height = window.innerHeight -10;
 canvas.style.touchAction = 'none'
 let lock = false;
@@ -31,10 +31,11 @@ class Figure{
         this.clicked = false;
     }
 
-    draw(context){
+    draw(context){   
         context.drawImage(this.image, this.sx, this.sy, this.sw, this.sh, this.x, this.y, this.width, this.height)
     };
     resize(context){
+        console.log(this.x, this.y + this.height);
         this.width = 54.70 * scale;
         this.height = 54.70 * scale;
         this.frame = 31.25 * scale;
@@ -42,6 +43,8 @@ class Figure{
         this.originY = this.frame + (this.row * this.height);
         this.x = this.originX;
         this.y = this.originY;
+        console.log(this.x, this.y);
+
         this.draw(context);
     }   
 };
@@ -107,6 +110,7 @@ canvas.addEventListener('pointermove', (e) => {
         if(lock && figure.clicked){
             figure.x = e.clientX - figure.width/2;
             figure.y = e.clientY - figure.height/2;
+            
         }
         figure.draw(ctx); 
     });  
@@ -116,7 +120,8 @@ canvas.addEventListener('pointerup', (e) => {
     setArray.forEach(figure => {
         figure.clicked = false;
         lock = false;
-    });  
+    });
+    scaling.style.display = 'none'
 });
 
 scaling.addEventListener('change', ()=>{
@@ -124,8 +129,8 @@ scaling.addEventListener('change', ()=>{
     scale = scaling.value;
     background.width = 500 * scale;
     background.height = 500 * scale;
-    canvas.width = background.width;
-    canvas.height = window.innerHeight -10;
+    canvas.width = window.innerWidth - 10;
+    canvas.height = window.innerHeight - 10;
     ctx.drawImage(background, 0, 0, background.width, background.height)
     setArray.forEach(figure => {
         figure.resize(ctx);        
