@@ -1,6 +1,7 @@
 const canvas = document.getElementById('canvas');
+const scaling = document.getElementById('scaling');
 const ctx = canvas.getContext('2d');
-const scale = 0.5;
+let scale = 1;
 let background = new Image();
 background.width = 500 * scale;
 background.height = 500 * scale;
@@ -32,7 +33,17 @@ class Figure{
 
     draw(context){
         context.drawImage(this.image, this.sx, this.sy, this.sw, this.sh, this.x, this.y, this.width, this.height)
-    } ;   
+    };
+    resize(context){
+        this.width = 54.70 * scale;
+        this.height = 54.70 * scale;
+        this.frame = 31.25 * scale;
+        this.originX = this.frame + (this.column * this.width);
+        this.originY = this.frame + (this.row * this.height);
+        this.x = this.originX;
+        this.y = this.originY;
+        this.draw(context);
+    }   
 };
 
 const bturmOne = new Figure({row:0, column:0, sx:240, sy:260, sw:200, sh:200});
@@ -106,4 +117,17 @@ canvas.addEventListener('pointerup', (e) => {
         figure.clicked = false;
         lock = false;
     });  
+});
+
+scaling.addEventListener('change', ()=>{
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    scale = scaling.value;
+    background.width = 500 * scale;
+    background.height = 500 * scale;
+    canvas.width = background.width;
+    canvas.height = window.innerHeight -10;
+    ctx.drawImage(background, 0, 0, background.width, background.height)
+    setArray.forEach(figure => {
+        figure.resize(ctx);        
+    });
 });

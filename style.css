@@ -11,3 +11,6 @@ body{
     position: absolute;
     border: 5px solid white;
 }
+#scaling{
+    position: absolute;
+}
