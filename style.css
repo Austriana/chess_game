@@ -4,9 +4,6 @@
     margin: 0;
     box-sizing: border-box;
 }
-body{
-    position: relative;
-}
 #canvas{
     position: absolute;
 }
