@@ -1,10 +1,8 @@
 const canvas = document.getElementById('canvas');
 const scaling = document.getElementById('scaling');
 const ctx = canvas.getContext('2d');
-let scale = .7;
+let scale = 0.1;
 let background = new Image();
-background.width = 500 * scale;
-background.height = 500 * scale;
 background.src = 'pictures/background.avif';
 format();
 canvas.style.touchAction = 'none'
@@ -101,7 +99,7 @@ canvas.addEventListener('pointerdown', (e) => {
 });
 canvas.addEventListener('pointermove', (e) => {
     e.preventDefault()
-    ctx.clearRect(0, 0, 1000, 1000)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(background, 0, 0, background.width, background.height)
     setArray.forEach(figure => {
         if(lock && figure.clicked){
@@ -134,10 +132,29 @@ scaling.addEventListener('change', ()=>{
 
 function format(){
     if(window.innerWidth > window.innerHeight){
-        canvas.width = window.innerWidth - 10;
-        canvas.height = background.height;
+        for(let i = 0; i<1000; i++){
+            if(canvas.height < window.innerHeight){
+                scale += 0.01
+                scaling.value = scale;
+                background.width = 500 * scale;
+                background.height = 500 * scale;
+                canvas.width = window.innerWidth;
+                canvas.height = background.height;
+            }
+        }
     } else {
-        canvas.height = window.innerHeight - 10;
-        canvas.width = background.width;
-    };    
+        for(let i = 0; i<1000; i++){
+            if(canvas.width < window.innerWidth){
+                scale += 0.01
+                scaling.value = scale;
+                background.width = 500 * scale;
+                background.height = 500 * scale;
+                canvas.height = window.innerHeight;
+                canvas.width = background.width;
+            }
+
+        }
+    };   
+
+ 
 };
