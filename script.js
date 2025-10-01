@@ -29,13 +29,13 @@ class Figure{
         this.x = this.originX;
         this.y = this.originY;
         this.clicked = false;
-    }
+    };
 
     draw(context){   
         context.drawImage(this.image, this.sx, this.sy, this.sw, this.sh, this.x, this.y, this.width, this.height)
     };
+
     resize(context){
-        console.log(this.x, this.y + this.height);
         this.width = 54.70 * scale;
         this.height = 54.70 * scale;
         this.frame = 31.25 * scale;
@@ -43,10 +43,8 @@ class Figure{
         this.originY = this.frame + (this.row * this.height);
         this.x = this.originX;
         this.y = this.originY;
-        console.log(this.x, this.y);
-
         this.draw(context);
-    }   
+    };
 };
 
 const bturmOne = new Figure({row:0, column:0, sx:240, sy:260, sw:200, sh:200});
@@ -99,7 +97,7 @@ canvas.addEventListener('pointerdown', (e) => {
         if(!lock && !figure.clicked && e.clientX > figure.x && e.clientX < figure.x + figure.width && e.clientY > figure.y && e.clientY < figure.y + figure.height){
             figure.clicked = true;
             lock = true;
-        }
+        };
     });  
 });
 canvas.addEventListener('pointermove', (e) => {
