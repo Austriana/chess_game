@@ -6,8 +6,7 @@ let background = new Image();
 background.width = 500 * scale;
 background.height = 500 * scale;
 background.src = 'pictures/background.avif';
-canvas.width = window.innerWidth - 10;
-canvas.height = window.innerHeight -10;
+format();
 canvas.style.touchAction = 'none'
 let lock = false;
 
@@ -108,8 +107,7 @@ canvas.addEventListener('pointermove', (e) => {
         if(lock && figure.clicked){
             figure.x = e.clientX - figure.width/2;
             figure.y = e.clientY - figure.height/2;
-            
-        }
+        };
         figure.draw(ctx); 
     });  
 });
@@ -123,14 +121,23 @@ canvas.addEventListener('pointerup', (e) => {
 });
 
 scaling.addEventListener('change', ()=>{
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
     scale = scaling.value;
     background.width = 500 * scale;
     background.height = 500 * scale;
-    canvas.width = window.innerWidth - 10;
-    canvas.height = window.innerHeight - 10;
+    format();
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(background, 0, 0, background.width, background.height)
     setArray.forEach(figure => {
         figure.resize(ctx);        
     });
 });
+
+function format(){
+    if(window.innerWidth > window.innerHeight){
+        canvas.width = window.innerWidth - 10;
+        canvas.height = background.height;
+    } else {
+        canvas.height = window.innerHeight - 10;
+        canvas.width = background.width;
+    };    
+};
