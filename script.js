@@ -7,7 +7,6 @@ background.src = 'pictures/background.avif';
 format();
 canvas.style.touchAction = 'none'
 let lock = false;
-
 class Figure{
     constructor({row, column, sx, sy, sw, sh}){
         this.image = new Image();
@@ -85,7 +84,7 @@ const setArray = [
 window.addEventListener('load', () => {
     ctx.drawImage(background, 0, 0, background.width, background.height)
     setArray.forEach(figure => {
-        figure.draw(ctx);        
+        figure.draw(ctx);       
     });
 });
 canvas.addEventListener('pointerdown', (e) => {
@@ -140,8 +139,8 @@ function format(){
                 background.height = 500 * scale;
                 canvas.width = window.innerWidth;
                 canvas.height = background.height;
-            }
-        }
+            };
+        };
     } else {
         for(let i = 0; i<1000; i++){
             if(canvas.width < window.innerWidth){
@@ -151,10 +150,7 @@ function format(){
                 background.height = 500 * scale;
                 canvas.height = window.innerHeight;
                 canvas.width = background.width;
-            }
-
-        }
+            };
+        };
     };   
-
- 
 };
