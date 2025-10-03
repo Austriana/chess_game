@@ -1,6 +1,8 @@
+"use strict"
 const canvas = document.getElementById('canvas');
-const scaling = document.getElementById('scaling');
 const ctx = canvas.getContext('2d');
+const wQueen = document.getElementById('wQueen');
+const bQueen = document.getElementById('bQueen');
 let scale = 0.1;
 let background = new Image();
 background.src = 'pictures/background.avif';
@@ -8,7 +10,8 @@ format();
 canvas.style.touchAction = 'none'
 let lock = false;
 class Figure{
-    constructor({row, column, sx, sy, sw, sh}){
+    constructor({kategorie, row, column, sx, sy, sw, sh}){
+        this.kategorie = kategorie;
         this.image = new Image();
         this.image.src = 'pictures/Group 13.svg';
         this.width = 54.70 * scale;
@@ -43,42 +46,42 @@ class Figure{
     };
 };
 
-const bturmOne = new Figure({row:0, column:0, sx:240, sy:260, sw:200, sh:200});
-const bturmTwo = new Figure({row:0, column:7, sx:240, sy:260, sw:200, sh:200});
-const bknightOne = new Figure({row:0, column:1, sx:440, sy:260, sw:200, sh:200});
-const bknightTwo = new Figure({row:0, column:6, sx:440, sy:260, sw:200, sh:200});
-const bbishopOne = new Figure({row:0, column:2, sx:640, sy:260, sw:200, sh:200});
-const bbishopTwo = new Figure({row:0, column:5, sx:640, sy:260, sw:200, sh:200});
-const bqueen = new Figure({row:0, column:3, sx:840, sy:260, sw:200, sh:200});
-const bking = new Figure({row:0, column:4, sx:1040, sy:260, sw:200, sh:200});
-const bbauerOne = new Figure({row:1, column:0, sx:40, sy:260, sw:200, sh:200});
-const bbauerTwo = new Figure({row:1, column:1, sx:40, sy:260, sw:200, sh:200});
-const bbauerThree = new Figure({row:1, column:2, sx:40, sy:260, sw:200, sh:200});
-const bbauerFour = new Figure({row:1, column:3, sx:40, sy:260, sw:200, sh:200});
-const bbauerFive = new Figure({row:1, column:4, sx:40, sy:260, sw:200, sh:200});
-const bbauerSix = new Figure({row:1, column:5, sx:40, sy:260, sw:200, sh:200});
-const bbauerSeven = new Figure({row:1, column:6, sx:40, sy:260, sw:200, sh:200});
-const bbauerEight = new Figure({row:1, column:7, sx:40, sy:260, sw:200, sh:200});
+const btower = new Figure({kategorie:'tower', row:0, column:0, sx:240, sy:260, sw:200, sh:200});
+const btowerTwo = new Figure({kategorie:'tower', row:0, column:7, sx:240, sy:260, sw:200, sh:200});
+const bknightOne = new Figure({kategorie:'knight', row:0, column:1, sx:440, sy:260, sw:200, sh:200});
+const bknightTwo = new Figure({kategorie:'knight', row:0, column:6, sx:440, sy:260, sw:200, sh:200});
+const bbishopOne = new Figure({kategorie:'bishop', row:0, column:2, sx:640, sy:260, sw:200, sh:200});
+const bbishopTwo = new Figure({kategorie:'bishop', row:0, column:5, sx:640, sy:260, sw:200, sh:200});
+const bqueen = new Figure({kategorie:'queen', row:0, column:3, sx:840, sy:260, sw:200, sh:200});
+const bking = new Figure({kategorie:'king', row:0, column:4, sx:1040, sy:260, sw:200, sh:200});
+const bbauerOne = new Figure({kategorie:'pawn', row:1, column:0, sx:40, sy:260, sw:200, sh:200});
+const bbauerTwo = new Figure({kategorie:'pawn', row:1, column:1, sx:40, sy:260, sw:200, sh:200});
+const bbauerThree = new Figure({kategorie:'pawn', row:1, column:2, sx:40, sy:260, sw:200, sh:200});
+const bbauerFour = new Figure({kategorie:'pawn', row:1, column:3, sx:40, sy:260, sw:200, sh:200});
+const bbauerFive = new Figure({kategorie:'pawn', row:1, column:4, sx:40, sy:260, sw:200, sh:200});
+const bbauerSix = new Figure({kategorie:'pawn', row:1, column:5, sx:40, sy:260, sw:200, sh:200});
+const bbauerSeven = new Figure({kategorie:'pawn', row:1, column:6, sx:40, sy:260, sw:200, sh:200});
+const bbauerEight = new Figure({kategorie:'pawn', row:1, column:7, sx:40, sy:260, sw:200, sh:200});
 
-const wturmOne = new Figure({row:7, column:0, sx:240, sy:470, sw:200, sh:200});
-const wturmTwo = new Figure({row:7, column:7, sx:240, sy:470, sw:200, sh:200});
-const wknightOne = new Figure({row:7, column:1, sx:440, sy:470, sw:200, sh:200});
-const wknightTwo = new Figure({row:7, column:6, sx:440, sy:470, sw:200, sh:200});
-const wbishopOne = new Figure({row:7, column:2, sx:640, sy:470, sw:200, sh:200});
-const wbishopTwo = new Figure({row:7, column:5, sx:640, sy:470, sw:200, sh:200});
-const wqueen = new Figure({row:7, column:3, sx:840, sy:470, sw:200, sh:200});
-const wking = new Figure({row:7, column:4, sx:1040, sy:470, sw:200, sh:200});
-const wbauerOne = new Figure({row:6, column:0, sx:40, sy:470, sw:200, sh:200});
-const wbauerTwo = new Figure({row:6, column:1, sx:40, sy:470, sw:200, sh:200});
-const wbauerThree = new Figure({row:6, column:2, sx:40, sy:470, sw:200, sh:200});
-const wbauerFour = new Figure({row:6, column:3, sx:40, sy:470, sw:200, sh:200});
-const wbauerFive = new Figure({row:6, column:4, sx:40, sy:470, sw:200, sh:200});
-const wbauerSix = new Figure({row:6, column:5, sx:40, sy:470, sw:200, sh:200});
-const wbauerSeven = new Figure({row:6, column:6, sx:40, sy:470, sw:200, sh:200});
-const wbauerEight = new Figure({row:6, column:7, sx:40, sy:470, sw:200, sh:200});
+const wturmOne = new Figure({kategorie:'tower', row:7, column:0, sx:240, sy:470, sw:200, sh:200});
+const wturmTwo = new Figure({kategorie:'tower', row:7, column:7, sx:240, sy:470, sw:200, sh:200});
+const wknightOne = new Figure({kategorie:'knight', row:7, column:1, sx:440, sy:470, sw:200, sh:200});
+const wknightTwo = new Figure({kategorie:'knight', row:7, column:6, sx:440, sy:470, sw:200, sh:200});
+const wbishopOne = new Figure({kategorie:'bishop', row:7, column:2, sx:640, sy:470, sw:200, sh:200});
+const wbishopTwo = new Figure({kategorie:'bishop', row:7, column:5, sx:640, sy:470, sw:200, sh:200});
+const wqueen = new Figure({kategorie:'queen', row:7, column:3, sx:840, sy:470, sw:200, sh:200});
+const wking = new Figure({kategorie:'king', row:7, column:4, sx:1040, sy:470, sw:200, sh:200});
+const wbauerOne = new Figure({kategorie:'pawn', row:6, column:0, sx:40, sy:470, sw:200, sh:200});
+const wbauerTwo = new Figure({kategorie:'pawn', row:6, column:1, sx:40, sy:470, sw:200, sh:200});
+const wbauerThree = new Figure({kategorie:'pawn', row:6, column:2, sx:40, sy:470, sw:200, sh:200});
+const wbauerFour = new Figure({kategorie:'pawn', row:6, column:3, sx:40, sy:470, sw:200, sh:200});
+const wbauerFive = new Figure({kategorie:'pawn', row:6, column:4, sx:40, sy:470, sw:200, sh:200});
+const wbauerSix = new Figure({kategorie:'pawn', row:6, column:5, sx:40, sy:470, sw:200, sh:200});
+const wbauerSeven = new Figure({kategorie:'pawn', row:6, column:6, sx:40, sy:470, sw:200, sh:200});
+const wbauerEight = new Figure({kategorie:'pawn', row:6, column:7, sx:40, sy:470, sw:200, sh:200});
 
 const setArray = [
-    wturmOne, wturmTwo, wknightOne, wknightTwo, wbishopOne, wbishopTwo, wqueen, wking, wbauerOne, wbauerTwo, wbauerThree, wbauerFour, wbauerFive, wbauerSix, wbauerSeven, wbauerEight, bturmOne, bturmTwo, bknightOne, bknightTwo, bbishopOne, bbishopTwo, bqueen, bking, bbauerOne, bbauerTwo, bbauerThree, bbauerFour, bbauerFive, bbauerSix, bbauerSeven, bbauerEight,
+    wturmOne, wturmTwo, wknightOne, wknightTwo, wbishopOne, wbishopTwo, wqueen, wking, wbauerOne, wbauerTwo, wbauerThree, wbauerFour, wbauerFive, wbauerSix, wbauerSeven, wbauerEight, btower, btowerTwo, bknightOne, bknightTwo, bbishopOne, bbishopTwo, bqueen, bking, bbauerOne, bbauerTwo, bbauerThree, bbauerFour, bbauerFive, bbauerSix, bbauerSeven, bbauerEight,
 ];
 
 window.addEventListener('load', () => {
@@ -114,19 +117,6 @@ canvas.addEventListener('pointerup', (e) => {
         figure.clicked = false;
         lock = false;
     });
-    scaling.style.display = 'none'
-});
-
-scaling.addEventListener('change', ()=>{
-    scale = scaling.value;
-    background.width = 500 * scale;
-    background.height = 500 * scale;
-    format();
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.drawImage(background, 0, 0, background.width, background.height)
-    setArray.forEach(figure => {
-        figure.resize(ctx);        
-    });
 });
 
 function format(){
@@ -134,7 +124,6 @@ function format(){
         for(let i = 0; i<1000; i++){
             if(canvas.height < window.innerHeight){
                 scale += 0.01
-                scaling.value = scale;
                 background.width = 500 * scale;
                 background.height = 500 * scale;
                 canvas.width = window.innerWidth;
@@ -145,12 +134,33 @@ function format(){
         for(let i = 0; i<1000; i++){
             if(canvas.width < window.innerWidth){
                 scale += 0.01
-                scaling.value = scale;
                 background.width = 500 * scale;
                 background.height = 500 * scale;
                 canvas.height = window.innerHeight;
                 canvas.width = background.width;
             };
         };
-    };   
+    }; 
+    wQueen.style.width = `${25 * scale}px`;
+    bQueen.style.width = `${25 * scale}px`;
 };
+
+bQueen.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+  setArray.push(new Figure({kategorie:'queen', row:0, column:3, sx:840, sy:260, sw:200, sh:200}));
+      ctx.drawImage(background, 0, 0, background.width, background.height)
+    setArray.forEach(figure => {
+        figure.draw(ctx);       
+    });
+})
+wQueen.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+  setArray.push(new Figure({kategorie:'queen', row:7, column:3, sx:840, sy:470, sw:200, sh:200}));
+      ctx.drawImage(background, 0, 0, background.width, background.height)
+    setArray.forEach(figure => {
+        figure.draw(ctx);       
+    });
+
+})

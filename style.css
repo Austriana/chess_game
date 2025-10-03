@@ -8,6 +8,20 @@
 #canvas{
     position: absolute;
 }
-#scaling{
+#navContainer{
     position: absolute;
+    background-color: transparent;
+    display: flex;
+    gap: 10px;
+}
+#scaling{
+    cursor: pointer;
+}
+#wQueen{
+    cursor: pointer;
+    background-color: white;
+}
+#bQueen{
+    cursor: pointer;
+    background-color: black;
 }
