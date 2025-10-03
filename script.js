@@ -1,13 +1,22 @@
 "use strict"
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const wQueen = document.getElementById('wQueen');
-const bQueen = document.getElementById('bQueen');
+const addFigure = document.querySelectorAll('.addFigure');
+const add = document.getElementById('add');
+const navContainer = document.getElementById('navContainer');
 let scale = 0.1;
 let background = new Image();
-background.src = 'pictures/background.avif';
+background.src = 'pictures/background.png';
 format();
 canvas.style.touchAction = 'none'
+navContainer.style.gap = `${22.5*scale}px`
+add.style.width = `${30 * scale}px`;
+add.style.height = `${30 * scale}px`;
+addFigure.forEach(e => {
+    e.style.width = `${30 * scale}px`;
+    e.style.height = `${30 * scale}px`;    
+})
+
 let lock = false;
 class Figure{
     constructor({kategorie, row, column, sx, sy, sw, sh}){
@@ -141,26 +150,15 @@ function format(){
             };
         };
     }; 
-    wQueen.style.width = `${25 * scale}px`;
-    bQueen.style.width = `${25 * scale}px`;
 };
+add.addEventListener('click', () => {
+    addFigure.forEach(e => {
+        let display = e.style.display;
+        if(display === 'flex'){
+            e.style.display = 'none';
+        } else{
+            e.style.display = 'flex'
+        }
 
-bQueen.addEventListener('click', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-  setArray.push(new Figure({kategorie:'queen', row:0, column:3, sx:840, sy:260, sw:200, sh:200}));
-      ctx.drawImage(background, 0, 0, background.width, background.height)
-    setArray.forEach(figure => {
-        figure.draw(ctx);       
-    });
-})
-wQueen.addEventListener('click', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-  setArray.push(new Figure({kategorie:'queen', row:7, column:3, sx:840, sy:470, sw:200, sh:200}));
-      ctx.drawImage(background, 0, 0, background.width, background.height)
-    setArray.forEach(figure => {
-        figure.draw(ctx);       
-    });
-
+    })
 })

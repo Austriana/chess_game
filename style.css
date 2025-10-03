@@ -17,11 +17,17 @@
 #scaling{
     cursor: pointer;
 }
-#wQueen{
+#add{
+    cursor: pointer;
+    width: 54px;
+    height: 54px;
+    background-color: transparent;
+}
+
+.addFigure{
+    display: none;
+    background-size: cover;
+    background-repeat: no-repeat;
     cursor: pointer;
     background-color: white;
-}
-#bQueen{
-    cursor: pointer;
-    background-color: black;
 }
