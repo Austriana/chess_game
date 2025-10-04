@@ -12,10 +12,6 @@ canvas.style.touchAction = 'none'
 navContainer.style.gap = `${22.5*scale}px`
 add.style.width = `${30 * scale}px`;
 add.style.height = `${30 * scale}px`;
-addFigure.forEach(e => {
-    e.style.width = `${30 * scale}px`;
-    e.style.height = `${30 * scale}px`;    
-})
 
 let lock = false;
 class Figure{
@@ -160,5 +156,46 @@ add.addEventListener('click', () => {
             e.style.display = 'flex'
         }
 
+    })
+})
+addFigure.forEach(elements => {
+    elements.style.width = `${30 * scale}px`;
+    elements.style.height = `${30 * scale}px`;    
+
+    elements.addEventListener('click', (element)=>{
+        switch (element.target.id) {
+            case 'wTower':
+                setArray.unshift(new Figure({kategorie:'tower', row:7, column:0, sx:240, sy:470, sw:200, sh:200}))
+                break;
+            case 'wKnight':
+                setArray.unshift(new Figure({kategorie:'knight', row:7, column:1, sx:440, sy:470, sw:200, sh:200}))
+                break;
+            case 'wBishop':
+                setArray.unshift(new Figure({kategorie:'bishop', row:7, column:2, sx:640, sy:470, sw:200, sh:200}))
+                break;
+            case 'wQueen':
+                setArray.unshift(new Figure({kategorie:'queen', row:7, column:3, sx:840, sy:470, sw:200, sh:200}))
+                break;
+            case 'bQueen':
+                setArray.unshift(new Figure({kategorie:'queen', row:0, column:3, sx:840, sy:260, sw:200, sh:200}))
+                break;
+            case 'bBishop':
+                setArray.unshift(new Figure({kategorie:'bishop', row:0, column:2, sx:640, sy:260, sw:200, sh:200}))
+                break;
+            case 'bKnight':
+                setArray.unshift(new Figure({kategorie:'knight', row:0, column:1, sx:440, sy:260, sw:200, sh:200}))
+                break;
+            case 'bTower':
+                setArray.unshift(new Figure({kategorie:'tower', row:0, column:0, sx:240, sy:270, sw:200, sh:200}))
+                break;
+        
+                default:
+                break;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(background, 0, 0, background.width, background.height)
+        setArray.forEach(figure => {
+            figure.draw(ctx);  
+        })
     })
 })
